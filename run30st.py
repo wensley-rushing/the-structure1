@@ -2,25 +2,20 @@ import math
 from math import *
 
 import xara
+import veux
 
-
-# from RC3D1Story import RC3D1Story
-# from mat import mat
-# from RC3D1Story import *
-from BuildRCrectSection import BuildRCrectSection
-import opsvis as opsvis
-
-import opsvis as opsvis
-import matplotlib.pyplot as plt
-import math as math
-import winsound
 import os
-import os.path
 import shutil
 import pathlib
 import time 
 import multiprocessing   
 
+# from RC3D1Story import RC3D1Story
+# from mat import mat
+# from RC3D1Story import *
+from BuildRCrectSection import BuildRCrectSection
+from SWsection import SWsection
+from RCstory3D import RCstory3D
 
 def BeamSecMat(model):
     ################## nominal concrete compressive strength ##############
@@ -92,8 +87,6 @@ if __name__ == "__main__":
 
     model = xara.Model('basic', '-ndm', 3, '-ndf', 6)
 
-
-
     BeamSecMat(model)
     # beam sections
     BuildRCrectSection(model,  1000  ,   0.40  ,   0.60  ,  0.04 ,  20000 , 50000  ,  60000  , 10 , 0.020  , 6   , 4  ,  20  , 20  , 10  , 10)
@@ -106,103 +99,11 @@ if __name__ == "__main__":
     BuildRCrectSection(model,       103   ,        0.55   ,  0.70  ,  0.04 ,  30000    ,    50000    ,       60000     ,      30     ,     0.022    ,    15     ,     15     ,    20   ,   20    ,   10    ,   10)
     BuildRCrectSection(model,        104   ,       0.55  ,   0.70  ,  0.04 ,  40000    ,     50000     ,     60000    ,       24   ,       0.022  ,      12     ,     12    ,     20   ,   20    ,   10    ,   10)
 
-    # some parameters
-    # colWidth = 0.15
-    # colDepth = 0.24
-
-    # cover = 0.015
-    # As = 0.000314  # area of no. 7 bars
-
-    # # some variables derived from the parameters
-    # y1 = colDepth / 2.0
-    # z1 = colWidth / 2.0
-
-
-    # section('Fiber', 3000,'-GJ', 1.e10)
-
-    # # Create the concrete core fibers
-    # patch('rect', 20000, 10, 1, cover - y1, cover - z1, y1 - cover, z1 - cover)
-
-    # # Create the concrete cover fibers (top, bottom, left, right)
-    # patch('rect', 20000, 10, 1, -y1, z1 - cover, y1, z1)
-    # patch('rect', 20000, 10, 1, -y1, -z1, y1, cover - z1)
-    # patch('rect', 20000, 2, 1, -y1, cover - z1, cover - y1, z1 - cover)
-    # patch('rect', 20000, 2, 1, y1 - cover, cover - z1, y1, z1 - cover)
-
-    # # Create the reinforcing fibers (left, middle, right)
-    # layer('straight',  60000, 3, As, y1 - cover, z1 - cover, y1 - cover, cover - z1)
-    # layer('straight', 60000, 2, As, 0.0, z1 - cover, 0.0, cover - z1)
-    # layer('straight', 60000, 3, As, cover - y1, z1 - cover, cover - y1, cover - z1)
-    # # from openseespy.opensees import *
-
-    # Define constants
-    # fc = -52.0e6
-    # Ec = 33892180000.0
-    # nu = 0.2
-    # Gc = Ec / (2.0 * (1 + nu))
-
-    # # # Define materials
-    # uniaxialMaterial('Concrete02', 20000, fc, -0.002801329, -14.5896e6, -0.014006643, 0.1, 4.617798447e6, 1590115.428)
-
-    # uniaxialMaterial('Steel02', 60000, 491.5e6, 2.0e11, 0.02, 20, 0.925, 0.15)
-
-
-    # # Define section tags
-    # BeamSecAggTag = 1000
-    # GirdSecAggTag = 101
-    # BeamSecTagFiber = 901
-    # GirdSecTagFiber = 9001
-    # matTagTorsion = 70
-    # Ubig = 1.0e10
-
-    # # # Core concrete (confined)
-    # # uniaxialMaterial('Concrete01', 1, -6.0, -0.004, -5.0, -0.014)
-
-    # # # Cover concrete (unconfined)
-    # # uniaxialMaterial('Concrete01', 2, -5.0, -0.002, 0.0, -0.006)
-
-    # # STEEL
-    # # # Reinforcing steel
-    # # fy = 60.0;  # Yield stress
-    # # E = 30000.0;  # Young's modulus
-    # # #                         tag  fy E0    b
-    # # uniaxialMaterial('Steel01', 3, fy, E, 0.01)
-
-
-    #  some parameters
-    # colWidth = 15
-    # colDepth = 24
-
-    # cover = 1.5
-    # As = 0.60  # area of no. 7 bars
-
-    # # some variables derived from the parameters
-    # y1 = colDepth / 2.0
-    # z1 = colWidth / 2.0
-
-
-    # section('Fiber', 3000,'-GJ', 1.e10)
-
-    # # Create the concrete core fibers
-    # patch('rect', 20000, 10, 1, cover - y1, cover - z1, y1 - cover, z1 - cover)
-
-    # # Create the concrete cover fibers (top, bottom, left, right)
-    # patch('rect', 20000, 10, 1, -y1, z1 - cover, y1, z1)
-    # patch('rect', 20000, 10, 1, -y1, -z1, y1, cover - z1)
-    # patch('rect', 20000, 2, 1, -y1, cover - z1, cover - y1, z1 - cover)
-    # patch('rect', 20000, 2, 1, y1 - cover, cover - z1, y1, z1 - cover)
-
-    # # Create the reinforcing fibers (left, middle, right)
-    # layer('straight',  60000, 3, As, y1 - cover, z1 - cover, y1 - cover, cover - z1)
-    # layer('straight', 60000, 2, As, 0.0, z1 - cover, 0.0, cover - z1)
-    # layer('straight', 60000, 3, As, cover - y1, z1 - cover, cover - y1, cover - z1)
-
-
-    exec(open("SWsection.py").read())
-    exec(open("RCStory3D.py").read())
+    SWsection(model)
+    RCstory3D(model)
     # exec(open("DefineBeamLoading.py").read())
 
-
+    veux.serve(veux.render(model))
     # import  mat.py
     # import  RC3D1Story.py
 
